@@ -29,7 +29,7 @@ public class Claim {
 	
 	private BigDecimal claimAmount;
 	
-	private BigDecimal amtApprovedBySurveyor;
+	private BigDecimal amtApprovedByInspector;
 	
 	private String claimApplicationDate;
 	

@@ -128,7 +128,7 @@ public class ClaimResource {
 		
 		Claim claim = new Claim();
 		claim.setActionStatus(ClaimActionStatus.PENDING.value());
-		claim.setAmtApprovedBySurveyor(BigDecimal.ZERO);
+		claim.setAmtApprovedByInspector(BigDecimal.ZERO);
 		claim.setClaimAmount(request.getClaimAmount());
 		claim.setClaimApplicationDate(String.valueOf(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
 		claim.setClaimId(Helper.generateClientId(10));
@@ -208,7 +208,7 @@ public class ClaimResource {
 				if(userres != null) {
 					User user = userres.getUser();
 					if(user != null) {
-						claimRes.setSurveyor(user);
+						claimRes.setInspector(user);
 					}
 				}
 			}
@@ -284,7 +284,7 @@ public class ClaimResource {
 				if(userres != null) {
 					User user = userres.getUser();
 					if(user != null) {
-						claimRes.setSurveyor(user);
+						claimRes.setInspector(user);
 					}
 				}
 			}
@@ -360,7 +360,7 @@ public class ClaimResource {
 				if(userres != null) {
 					User user = userres.getUser();
 					if(user != null) {
-						claimRes.setSurveyor(user);
+						claimRes.setInspector(user);
 					}
 				}
 			}
@@ -440,7 +440,7 @@ public class ClaimResource {
 			return new ResponseEntity<CommonApiResponse>(response, HttpStatus.BAD_REQUEST);
 		}
 		
-		if(request.getActionStatus().equals(ClaimActionStatus.ACCEPTED.value()) && request.getAmtApprovedBySurveyor() == null) {
+		if(request.getActionStatus().equals(ClaimActionStatus.ACCEPTED.value()) && request.getAmtApprovedByInspector() == null) {
 			response.setResponseMessage("bad request - approved amount missing");
 			response.setSuccess(false);
 			return new ResponseEntity<CommonApiResponse>(response, HttpStatus.BAD_REQUEST);
@@ -458,7 +458,7 @@ public class ClaimResource {
 		claim.setActionStatus(request.getActionStatus());
 		
 		if(request.getActionStatus().equals(ClaimActionStatus.ACCEPTED.value())) {
-			claim.setAmtApprovedBySurveyor(request.getAmtApprovedBySurveyor());
+			claim.setAmtApprovedByInspector(request.getAmtApprovedByInspector());
 		} else {
 			claim.setClaimStatus(ClaimStatus.CLOSE.value()); // because surveyor has Rejected the Claim
 			claim.setCustomerClaimResponse(ClaimResponseStatus.SURVEYOR_REJECTED.value());

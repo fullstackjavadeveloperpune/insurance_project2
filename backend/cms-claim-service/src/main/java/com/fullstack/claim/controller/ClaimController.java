@@ -52,9 +52,9 @@ public class ClaimController {
 		return claimResource.fetchAllClaimsByCustomer(customerId);
 	}
 
-	@GetMapping("/fetch/surveyor-wise")
-	public ResponseEntity<ClaimResponseDto> fetchAllClaimsBySurveyor(@RequestParam("surveyorId") Integer surveyorId) {
-		return claimResource.fetchAllClaimsBySurveyor(surveyorId);
+	@GetMapping("/fetch/inspector-wise")
+	public ResponseEntity<ClaimResponseDto> fetchAllClaimsBySurveyor(@RequestParam("inspectorId") Integer inspectorId) {
+		return claimResource.fetchAllClaimsBySurveyor(inspectorId);
 	}
 
 	@PutMapping("/assign/inspector")
@@ -62,7 +62,7 @@ public class ClaimController {
 		return claimResource.assignSurveyorForClaim(request);
 	}
 
-	@PutMapping("/surveyor/update")
+	@PutMapping("/inspector/update")
 	public ResponseEntity<CommonApiResponse> updateClaimBySurveyor(@RequestBody UpdateClaimRequestDto request) {
 		return claimResource.updateClaimBySurveyor(request);
 	}

@@ -15,6 +15,6 @@ public class ClaimResponse {
 	
 	private User customer;
 	
-	private User surveyor;
+	private User inspector;
 
 }

@@ -12,7 +12,7 @@ public class UpdateClaimRequestDto {
 	private Integer surveyorId; // for assigning customer claim to surveyor from admin side
 
 	// ******* from surveyor *********
-	private BigDecimal amtApprovedBySurveyor;
+	private BigDecimal amtApprovedByInspector;
 
 	// if Reject --> claimStatus --> Close
 	// if Accepted --> claim status -->

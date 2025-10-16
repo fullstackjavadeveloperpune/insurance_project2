@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ViewInspectorClaims = () => {
   const navigate = useNavigate();
-  const inspector = JSON.parse(sessionStorage.getItem("active-Inspector"));
+  const inspector = JSON.parse(sessionStorage.getItem("active-inspector"));
 
   const [applications, setApplications] = useState([]);
   const [claim, setClaim] = useState({});
@@ -45,9 +45,71 @@ const ViewInspectorClaims = () => {
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
   };
 
-  const updateClaim = (e) => {
+   const updateClaim = (e) => {
     e.preventDefault();
-    // your existing update logic
+
+    let data;
+
+    if (actionStatus === "") {
+      alert("Please select the Claim Status");
+    } else if (actionStatus === "Approved" && amtApprovedByInspector === "") {
+      alert("Please select the Claim Approved amount!!!");
+    } else {
+      fetch("http://localhost:9000/api/claim/inspector/update", {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          actionStatus: actionStatus,
+          claimId: claim.id,
+          amtApprovedByInspector: amtApprovedByInspector,
+        }),
+      })
+        .then((result) => {
+          console.log("result", result);
+          result.json().then((res) => {
+            if (res.success) {
+              toast.success(res.responseMessage, {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+
+              setTimeout(() => {
+                navigate("/home");
+              }, 2000); // Redirect after 3 seconds
+            } else {
+              toast.error(res.responseMessage, {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          toast.error("It seems server is down", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
+    }
   };
 
   const getBadge = (text) => {

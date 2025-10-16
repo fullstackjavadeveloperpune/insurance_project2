@@ -18,7 +18,7 @@ public class DatabaseConstant {
 	
 	public enum ClaimActionStatus {
 		PENDING("Pending"),
-		ASSIGNED_TO_SURVEYOR("Assigned to Surveyor"),
+		ASSIGNED_TO_SURVEYOR("Assigned to Inspector"),
 		ACCEPTED("Accepted"),
 		REJECTED("Rejected");
 
